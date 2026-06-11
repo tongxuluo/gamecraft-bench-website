@@ -91,3 +91,73 @@ document.querySelectorAll("[data-citation-copy]").forEach((btn) => {
     }
   });
 });
+
+// ---------- Cursor glow (rAF lerp) + pooled ripples ----------
+(function() {
+  var glow = document.getElementById('cursor-glow');
+  if (!glow) return;
+  var noFancy = window.matchMedia &&
+    (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+     window.matchMedia('(hover: none)').matches);
+  if (noFancy) return;
+
+  var tgtX = 0, tgtY = 0, curX = 0, curY = 0;
+  var running = false, primed = false;
+  var EASE = 0.16;
+
+  function frame() {
+    curX += (tgtX - curX) * EASE;
+    curY += (tgtY - curY) * EASE;
+    glow.style.transform = 'translate3d(' + curX + 'px,' + curY + 'px,0)';
+    if (Math.abs(tgtX - curX) > 0.4 || Math.abs(tgtY - curY) > 0.4) {
+      requestAnimationFrame(frame);
+    } else {
+      glow.style.transform = 'translate3d(' + tgtX + 'px,' + tgtY + 'px,0)';
+      running = false;
+    }
+  }
+  function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }
+
+  var POOL = 8, pool = [], pi = 0;
+  for (var i = 0; i < POOL; i++) {
+    var el = document.createElement('div');
+    el.className = 'cursor-ripple';
+    document.body.appendChild(el);
+    pool.push(el);
+  }
+  function ripple(x, y) {
+    var el = pool[pi]; pi = (pi + 1) % POOL;
+    el.style.setProperty('--x', x + 'px');
+    el.style.setProperty('--y', y + 'px');
+    el.classList.remove('go');
+    void el.offsetWidth;
+    el.classList.add('go');
+  }
+
+  var lastRX = -9999, lastRY = -9999, lastRT = 0;
+  document.addEventListener('mousemove', function(e) {
+    tgtX = e.clientX; tgtY = e.clientY;
+    if (!primed) { curX = tgtX; curY = tgtY; primed = true; glow.style.opacity = '1'; }
+    kick();
+    var now = e.timeStamp || performance.now();
+    var dx = tgtX - lastRX, dy = tgtY - lastRY;
+    if ((dx * dx + dy * dy) > 1100 && (now - lastRT) > 110) {
+      ripple(tgtX, tgtY);
+      lastRX = tgtX; lastRY = tgtY; lastRT = now;
+    }
+  }, { passive: true });
+
+  document.addEventListener('mousedown', function(e) { ripple(e.clientX, e.clientY); }, { passive: true });
+})();
+
+// ---------- Back to top ----------
+(function() {
+  var btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  window.addEventListener('scroll', function() {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
