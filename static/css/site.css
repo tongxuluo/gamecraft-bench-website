@@ -195,6 +195,48 @@ pre code {
   background: transparent;
 }
 
+.citation-box {
+  position: relative;
+}
+
+.citation-box pre {
+  margin: 0;
+  padding-right: 96px;
+}
+
+.citation-copy {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #eef5ff;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.citation-copy:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.citation-copy:focus-visible {
+  outline: 2px solid #7cb1ff;
+  outline-offset: 2px;
+}
+
+.citation-copy.is-copied {
+  background: #2f9e6c;
+  border-color: #2f9e6c;
+  color: #ffffff;
+  cursor: default;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
