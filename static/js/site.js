@@ -207,3 +207,51 @@ document.querySelectorAll("[data-citation-copy]").forEach((btn) => {
     el.addEventListener('mouseleave', reset);
   });
 })();
+
+// ---------- Play modal ----------
+(function() {
+  var modal  = document.getElementById('play-modal');
+  if (!modal) return;
+  var iframe = modal.querySelector('.play-modal-iframe');
+  var closers = modal.querySelectorAll('[data-close]');
+  var lastFocus = null;
+
+  function open(url) {
+    lastFocus = document.activeElement;
+    iframe.src = url;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('play-modal-open');
+    var btn = modal.querySelector('.play-modal-close');
+    if (btn) btn.focus();
+  }
+
+  function close() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('play-modal-open');
+    iframe.src = 'about:blank';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest && e.target.closest('a.play-link');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href === '#' || /^https?:\/\//i.test(href) === false && !/index\.html$/.test(href)) {
+      // only intercept local godot index.html links
+    }
+    if (href && href !== '#') {
+      e.preventDefault();
+      open(href);
+    }
+  });
+
+  closers.forEach(function(el) {
+    el.addEventListener('click', close);
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+  });
+})();
