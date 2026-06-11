@@ -161,3 +161,49 @@ document.querySelectorAll("[data-citation-copy]").forEach((btn) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 })();
+
+// ---------- Author / affiliation highlight ----------
+(function() {
+  var authors = Array.from(document.querySelectorAll('.author'));
+  var affs = Array.from(document.querySelectorAll('.aff'));
+  var all = authors.concat(affs);
+
+  function getAffs(el) {
+    return (el.dataset.aff || '').split(',').map(function(s){ return s.trim(); });
+  }
+
+  function highlight(activeAffs) {
+    all.forEach(function(el) {
+      var elAffs = getAffs(el);
+      var match = activeAffs.some(function(a){ return elAffs.indexOf(a) !== -1; });
+      el.classList.toggle('aff-highlight', match);
+      el.classList.toggle('aff-dim', !match);
+    });
+  }
+
+  function reset() {
+    all.forEach(function(el) {
+      el.classList.remove('aff-highlight', 'aff-dim');
+    });
+  }
+
+  all.forEach(function(el) {
+    el.addEventListener('mouseenter', function() {
+      var activeAffs = getAffs(el);
+      var isAuthor = el.classList.contains('author');
+      all.forEach(function(other) {
+        var otherAffs = getAffs(other);
+        var match;
+        if (isAuthor && other.classList.contains('author')) {
+          // hovering an author: only highlight that exact author, not co-affiliates
+          match = other === el;
+        } else {
+          match = activeAffs.some(function(a){ return otherAffs.indexOf(a) !== -1; });
+        }
+        other.classList.toggle('aff-highlight', match);
+        other.classList.toggle('aff-dim', !match);
+      });
+    });
+    el.addEventListener('mouseleave', reset);
+  });
+})();
