@@ -84,7 +84,7 @@ a:hover { text-decoration: underline; }
 .title-rule-top {
   display: block;
   height: 4px;
-  background: var(--ink);
+  background: #9A3898;
   border-radius: 2px;
   margin: 0 auto 16px;
   width: min(920px,100%);
@@ -1050,4 +1050,24 @@ body.play-modal-open { overflow: hidden; }
   font-size: 0.85em;
   font-weight: 700;
   vertical-align: baseline;
+}
+
+/* ─── Video placeholder for cards without recordings ─────────────────────── */
+.demo-video-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.04) 0 8px,
+      rgba(255,255,255,0.00) 8px 16px),
+    var(--code-bg);
+  color: rgba(230, 237, 243, 0.55);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  user-select: none;
 }
