@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GameCraft-Bench evaluates CLI coding agents on end-to-end Godot game development with replayed gameplay evidence.">
+  <title>GameCraft-Bench</title>
+  <link rel="stylesheet" href="static/css/site.css?v=20260611-carousel3">
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar" aria-label="Primary">
+      <a href="#overview">Overview</a>
+      <a href="#abstract">Abstract</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#tasks">Tasks</a>
+      <a href="#evaluation">Evaluation</a>
+      <a href="#demos">Demos</a>
+      <a href="#citation">Citation</a>
+      <a href="#acknowledgement">Acknowledgement</a>
+    </nav>
+
+    <div class="hero-inner">
+      <img class="title-image" src="static/images/benchmark_title.png" alt="GameCraft-Bench">
+      <p class="subtitle">
+        Benchmarking coding agents for end-to-end game development in real game-engine environments.
+      </p>
+      <p class="authors">
+        Tongxu Luo<sup>1,2*</sup>, Rongsheng Wang<sup>1*</sup>, Jiaxi Bi<sup>2,4*&dagger;</sup>,
+        Chenming Xu<sup>1,2*</sup>, Zhengyang Tang<sup>1,3*</sup>, Jianlong Chen<sup>1</sup>,
+        Juhao Liang<sup>1</sup>, Ke Ji<sup>1</sup>, Shuqi Guo<sup>1,2</sup>,
+        Yuhao Du<sup>1,2</sup>, Fan Bu<sup>1,2</sup>, Wenyu Du<sup>5</sup>,
+        Xiaotong Zhang<sup>4</sup>, Kyle Li<sup>7</sup>, Shaobo Wang<sup>6</sup>,
+        Linfeng Zhang<sup>6</sup>, Yuxuan Liu<sup>3</sup>, Xin Lai<sup>3</sup>,
+        Chenxin Li<sup>3</sup>, Yiduo Guo<sup>3</sup>, Xinyuan Wang<sup>3</sup>,
+        Ziniu Li<sup>3</sup>, Benyou Wang<sup>1,2&Dagger;</sup>
+      </p>
+      <p class="affiliations">
+        <sup>1</sup>The Chinese University of Hong Kong, Shenzhen,
+        <sup>2</sup>Shenzhen Loop Area Institute,
+        <sup>3</sup>Hunyuan Team, Tencent,
+        <sup>4</sup>USTB,
+        <sup>5</sup>DualverseAI,
+        <sup>6</sup>SJTU,
+        <sup>7</sup>NUS
+      </p>
+      <p class="author-notes">
+        <sup>*</sup>Equal contributions.
+        <sup>&dagger;</sup>Work done during interning at SLAI.
+        <sup>&Dagger;</sup>Corresponding author.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="#" aria-label="Project website link placeholder">Website</a>
+        <a class="button" href="#" aria-label="Paper link placeholder">Paper</a>
+        <a class="button" href="https://github.com/tongxuluo/GameCraft-Bench">Code</a>
+        <a class="button" href="#demos">Demos</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="overview" class="section">
+      <div class="container narrow">
+        <h1>GameCraft-Bench</h1>
+        <p>
+          GameCraft-Bench asks a coding agent to turn a product-style game brief
+          into a complete, playable Godot 4 project. Each submission includes a
+          game project and replayable input traces. The verifier launches the
+          game, replays the traces, records gameplay videos, samples visual
+          evidence, and scores the result with a task rubric.
+        </p>
+        <div class="stats" aria-label="Benchmark statistics">
+          <div><strong>140</strong><span>Tasks</span></div>
+          <div><strong>15</strong><span>Game Families</span></div>
+          <div><strong>4</strong><span>Rubric Categories</span></div>
+          <div><strong>Godot 4</strong><span>Engine</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="abstract" class="section muted">
+      <div class="container narrow">
+        <h2>Abstract</h2>
+        <p>
+          Game development is an important application for coding agents, where
+          a user specifies an interactive experience and the agent must turn
+          that intent into a working game artifact. This setting is challenging
+          because game development happens inside an engine, where scripts,
+          scene graphs, assets, input maps, rendering, visual feedback, and
+          runtime configuration must work together as an executable interactive
+          system, rather than merely producing compilable code.
+        </p>
+        <p>
+          Evaluating this setting requires three properties:
+          <strong>P1: Engine-grounded Construction</strong>,
+          <strong>P2: Artifact Completeness</strong>, and
+          <strong>P3: Interactive Playability Evaluation</strong>. Existing
+          game-generation benchmarks cover parts of this space but do not
+          jointly satisfy these properties. GameCraft-Bench is an end-to-end
+          benchmark for 2D game development in Godot, containing 140 tasks
+          across 15 game families.
+        </p>
+        <p>
+          For each task, an agent receives a game brief, shared asset libraries,
+          and a fixed workspace, then must produce a complete game project and
+          demonstration traces. Evaluation of frontier coding agents shows that
+          end-to-end game development remains highly challenging: even the
+          strongest agent scores only 41.46%, and most agents score below 40.00%.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <figure class="paper-figure">
+          <img src="static/figures/overview.png" alt="Overview of GameCraft-Bench">
+          <figcaption>
+            Overview of GameCraft-Bench: agents turn game briefs into Godot
+            projects, which are executed, replayed, recorded, and judged through
+            gameplay evidence.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="comparison" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Benchmark Comparison</h2>
+          <p>
+            GameCraft-Bench jointly covers engine-grounded construction,
+            complete artifacts, and interactive playability evaluation.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Benchmark</th>
+                <th>Engine-grounded<br>Construction</th>
+                <th>Artifact<br>Completeness</th>
+                <th>Interactive<br>Playability Eval.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GameDevBench</td>
+                <td class="yes">&check;</td>
+                <td class="no">&times;</td>
+                <td class="no">&times;</td>
+              </tr>
+              <tr>
+                <td>OpenGame-Bench</td>
+                <td class="no">&times;</td>
+                <td class="yes">&check;</td>
+                <td class="no">&times;</td>
+              </tr>
+              <tr class="ours">
+                <td>GameCraft-Bench</td>
+                <td class="yes">&check;</td>
+                <td class="yes">&check;</td>
+                <td class="yes">&check;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="leaderboard" class="section muted">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Leaderboard</h2>
+          <p>
+            Overall and category scores on the full 140-task benchmark. Scores
+            are percentages; higher is better.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="leaderboard">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Agent</th>
+                <th>Model</th>
+                <th>Overall</th>
+                <th>Mechanics</th>
+                <th>Depth</th>
+                <th>Visuals</th>
+                <th>Art</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Claude Code</td>
+                <td>Opus-4.7 high</td>
+                <td><strong>41.46</strong></td>
+                <td>55.34</td>
+                <td>39.48</td>
+                <td>42.78</td>
+                <td>36.86</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Codex</td>
+                <td>GPT-5.5 high</td>
+                <td><strong>39.49</strong></td>
+                <td>54.36</td>
+                <td>38.61</td>
+                <td>41.84</td>
+                <td>32.94</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Kimi Code</td>
+                <td>Kimi-K2.6</td>
+                <td><strong>30.65</strong></td>
+                <td>39.76</td>
+                <td>28.07</td>
+                <td>33.66</td>
+                <td>27.99</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Claude Code</td>
+                <td>MiMo-V2.5-Pro</td>
+                <td><strong>24.10</strong></td>
+                <td>32.33</td>
+                <td>22.59</td>
+                <td>27.45</td>
+                <td>20.65</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Code Buddy</td>
+                <td>GLM-5.1</td>
+                <td><strong>18.29</strong></td>
+                <td>25.23</td>
+                <td>17.80</td>
+                <td>21.14</td>
+                <td>14.59</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Code Buddy</td>
+                <td>MiniMax-M2.7</td>
+                <td><strong>10.95</strong></td>
+                <td>14.27</td>
+                <td>9.92</td>
+                <td>14.92</td>
+                <td>8.85</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>Codex</td>
+                <td>Deepseek-V4-Pro</td>
+                <td><strong>2.15</strong></td>
+                <td>2.25</td>
+                <td>1.69</td>
+                <td>1.97</td>
+                <td>2.63</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          The strongest configuration reaches only 41.46%, indicating that
+          end-to-end game development remains far from solved for current
+          coding agents.
+        </p>
+      </div>
+    </section>
+
+    <section id="evaluation" class="section">
+      <div class="container two-column">
+        <article>
+          <h2>Evaluation Protocol</h2>
+          <p>
+            GameCraft-Bench evaluates complete playable artifacts. Each agent
+            receives a game brief, shared asset libraries, and a fixed workspace,
+            then submits a Godot project plus replayable demonstration traces.
+          </p>
+          <ol class="pipeline">
+            <li>Build and launch the Godot project.</li>
+            <li>Replay mouse and keyboard traces at 30 FPS.</li>
+            <li>Record gameplay videos and sample visual evidence.</li>
+            <li>Score rubric items with a multimodal judge.</li>
+          </ol>
+        </article>
+        <div class="rubric-grid">
+          <div class="rubric-card">
+            <h3>Core Mechanics</h3>
+            <p>Does the requested gameplay loop work under player input?</p>
+          </div>
+          <div class="rubric-card">
+            <h3>Content Depth</h3>
+            <p>Is there enough progression, content, and state variation?</p>
+          </div>
+          <div class="rubric-card">
+            <h3>Functional Visuals</h3>
+            <p>Can players read state, feedback, transitions, and outcomes?</p>
+          </div>
+          <div class="rubric-card">
+            <h3>Art and Presentation</h3>
+            <p>Does the game feel visually coherent and appropriately styled?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <figure class="paper-figure">
+          <img src="static/figures/verify_pipeline.png" alt="Playability verification pipeline">
+          <figcaption>
+            Playability verification pipeline: the verifier launches each
+            submission, replays agent-provided demonstrations, records gameplay,
+            samples frames, and scores the evidence with a rubric-guided judge.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="tasks" class="section muted">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Task Suite</h2>
+          <p>
+            The benchmark spans diverse 2D game-construction demands, from
+            continuous control and collision to rule systems, progression,
+            exploration, and presentation-heavy interaction.
+          </p>
+        </div>
+        <div class="family-grid">
+          <div><span>Platformer</span><strong>19</strong></div>
+          <div><span>Strategy</span><strong>17</strong></div>
+          <div><span>Tycoon</span><strong>16</strong></div>
+          <div><span>Open-world</span><strong>15</strong></div>
+          <div><span>Roguelike</span><strong>14</strong></div>
+          <div><span>Visual novel</span><strong>11</strong></div>
+          <div><span>Puzzle</span><strong>8</strong></div>
+          <div><span>Shooter</span><strong>7</strong></div>
+          <div><span>Simulation</span><strong>6</strong></div>
+          <div><span>Card game</span><strong>5</strong></div>
+          <div><span>Horror</span><strong>5</strong></div>
+          <div><span>Rhythm</span><strong>5</strong></div>
+          <div><span>Idle</span><strong>4</strong></div>
+          <div><span>Racing</span><strong>4</strong></div>
+          <div><span>Sports</span><strong>4</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Benchmark Properties</h2>
+        </div>
+        <div class="property-grid">
+          <article>
+            <h3>Engine-grounded Construction</h3>
+            <p>Agents work in a real game engine with scenes, scripts, assets, input maps, and runtime configuration.</p>
+          </article>
+          <article>
+            <h3>Artifact Completeness</h3>
+            <p>The unit of evaluation is a complete playable vertical slice, not an isolated code fragment.</p>
+          </article>
+          <article>
+            <h3>Interactive Playability Evaluation</h3>
+            <p>Scores come from replayed player interaction and recorded gameplay evidence, not source code alone.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Key Findings</h2>
+        </div>
+        <div class="finding-grid">
+          <article>
+            <h3>Mechanics are easier than complete games.</h3>
+            <p>Top agents score higher on core mechanics than on content depth and presentation, suggesting partial loops are easier than polished vertical slices.</p>
+          </article>
+          <article>
+            <h3>Visual iteration matters.</h3>
+            <p>Kimi-K2.6 used 2,998 rendered-screen inspections across 140 tasks, showing that visual feedback is a major debugging signal for game development.</p>
+          </article>
+          <article>
+            <h3>Judge scores are stable on fixed evidence.</h3>
+            <p>Repeated GPT-5.5 judging on fixed gameplay evidence shows small variance compared with the gaps between agents and families.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="demos" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Demos</h2>
+          <p>
+            Gameplay recordings show what agents built; playable builds open the
+            corresponding Godot Web export only when requested.
+          </p>
+        </div>
+        <div class="demo-model-stack">
+          <section class="model-demo-row">
+            <div class="model-label">
+              <h3>Opus-4.7</h3>
+              <span>Claude Code</span>
+            </div>
+            <div class="demo-placeholder">Playable demos coming soon</div>
+          </section>
+
+          <section class="model-demo-row">
+            <div class="model-label">
+              <h3>GPT-5.5</h3>
+              <span>Codex</span>
+            </div>
+            <div class="demo-placeholder">Playable demos coming soon</div>
+          </section>
+
+          <section class="model-demo-row">
+            <div class="model-label">
+              <h3>Kimi-K2.6</h3>
+              <span>Kimi Code</span>
+            </div>
+            <div class="demo-carousel" aria-label="Kimi-K2.6 playable demos">
+              <div class="demo-window">
+                <div class="demo-track">
+                <article class="demo-card">
+                  <video controls muted playsinline preload="metadata">
+                    <source src="static/videos/strategy-skirmish.mp4" type="video/mp4">
+                  </video>
+                  <div class="demo-content">
+                    <div class="demo-details">
+                      <h3>Strategy Skirmish</h3>
+                      <p class="demo-meta">Kimi-K2.6 (Kimi Code)</p>
+                      <div class="demo-scores" aria-label="Strategy Skirmish scores">
+                        <div class="score-overall">
+                          <span>Overall</span>
+                          <strong>39.33</strong>
+                        </div>
+                        <div class="score-grid">
+                          <span><b>Mechanics</b>52.50</span>
+                          <span><b>Depth</b>36.25</span>
+                          <span><b>Visuals</b>46.39</span>
+                          <span><b>Art</b>33.75</span>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="play-link" href="static/godot/strategy-skirmish/index.html">Try to Play</a>
+                  </div>
+                </article>
+                <article class="demo-card">
+                  <video controls muted playsinline preload="metadata">
+                    <source src="static/videos/sports-boxing-gym.mp4" type="video/mp4">
+                  </video>
+                  <div class="demo-content">
+                    <div class="demo-details">
+                      <h3>Sports Boxing Gym</h3>
+                      <p class="demo-meta">Kimi-K2.6 (Kimi Code)</p>
+                      <div class="demo-scores" aria-label="Sports Boxing Gym scores">
+                        <div class="score-overall">
+                          <span>Overall</span>
+                          <strong>41.56</strong>
+                        </div>
+                        <div class="score-grid">
+                          <span><b>Mechanics</b>38.33</span>
+                          <span><b>Depth</b>42.50</span>
+                          <span><b>Visuals</b>37.50</span>
+                          <span><b>Art</b>43.75</span>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="play-link" href="static/godot/sports-boxing-gym/index.html">Try to Play</a>
+                  </div>
+                </article>
+                <article class="demo-card">
+                  <video controls muted playsinline preload="metadata">
+                    <source src="static/videos/platformer-thunder-valkyrie.mp4" type="video/mp4">
+                  </video>
+                  <div class="demo-content">
+                    <div class="demo-details">
+                      <h3>Platformer Thunder Valkyrie</h3>
+                      <p class="demo-meta">Kimi-K2.6 (Kimi Code)</p>
+                      <div class="demo-scores" aria-label="Platformer Thunder Valkyrie scores">
+                        <div class="score-overall">
+                          <span>Overall</span>
+                          <strong>40.48</strong>
+                        </div>
+                        <div class="score-grid">
+                          <span><b>Mechanics</b>70.00</span>
+                          <span><b>Depth</b>36.00</span>
+                          <span><b>Visuals</b>31.00</span>
+                          <span><b>Art</b>36.38</span>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="play-link" href="static/godot/platformer-thunder-valkyrie/index.html">Try to Play</a>
+                  </div>
+                </article>
+                <article class="demo-card">
+                  <video controls muted playsinline preload="metadata">
+                    <source src="static/videos/openworld-fishing.mp4" type="video/mp4">
+                  </video>
+                  <div class="demo-content">
+                    <div class="demo-details">
+                      <h3>Openworld Fishing</h3>
+                      <p class="demo-meta">Kimi-K2.6 (Kimi Code)</p>
+                      <div class="demo-scores" aria-label="Openworld Fishing scores">
+                        <div class="score-overall">
+                          <span>Overall</span>
+                          <strong>25.02</strong>
+                        </div>
+                        <div class="score-grid">
+                          <span><b>Mechanics</b>25.00</span>
+                          <span><b>Depth</b>15.00</span>
+                          <span><b>Visuals</b>0.00</span>
+                          <span><b>Art</b>45.78</span>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="play-link" href="static/godot/openworld-fishing/index.html">Try to Play</a>
+                  </div>
+                </article>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="model-demo-row">
+            <div class="model-label">
+              <h3>MiMo-2.5-Pro</h3>
+              <span>Claude Code</span>
+            </div>
+            <div class="demo-placeholder">Playable demos coming soon</div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation" class="section">
+      <div class="container narrow">
+        <h2>Citation</h2>
+        <pre><code>@misc{luo2026gamecraftbench,
+  title = {GameCraft-Bench: Benchmarking Coding Agents for End-to-End Game Development in Game Engine Environments},
+  author = {Tongxu Luo and Rongsheng Wang and Jiaxi Bi and Chenming Xu and Zhengyang Tang and Jianlong Chen and Juhao Liang and Ke Ji and Shuqi Guo and Yuhao Du and Fan Bu and Wenyu Du and Xiaotong Zhang and Kyle Li and Shaobo Wang and Linfeng Zhang and Yuxuan Liu and Xin Lai and Chenxin Li and Yiduo Guo and Xinyuan Wang and Ziniu Li and Benyou Wang},
+  year = {2026},
+  url = {https://github.com/tongxuluo/GameCraft-Bench}
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="acknowledgement" class="section muted">
+      <div class="container narrow">
+        <h2>Acknowledgement</h2>
+        <p>
+          This website is adapted from
+          <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+          licensed under a
+          <a href="http://creativecommons.org/licenses/by-sa/4.0/">
+            Creative Commons Attribution-ShareAlike 4.0 International License
+          </a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>GameCraft-Bench · End-to-end game-development evaluation for coding agents.</p>
+  </footer>
+  <script src="static/js/site.js?v=20260611-carousel4"></script>
+</body>
+</html>
