@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="GameCraft-Bench evaluates CLI coding agents on end-to-end Godot game development with replayed gameplay evidence.">
   <title>GameCraft-Bench</title>
   <link rel="icon" type="image/png" href="static/images/favicon.png?v=2">
@@ -369,7 +369,7 @@
             exploration, and presentation-heavy interaction.
           </p>
         </div>
-        <div class="family-grid">
+        <div class="family-grid" id="family-grid">
           <div><span>Platformer</span><strong>19</strong></div>
           <div><span>Strategy</span><strong>17</strong></div>
           <div><span>Tycoon</span><strong>16</strong></div>
@@ -386,6 +386,7 @@
           <div><span>Racing</span><strong>4</strong></div>
           <div><span>Sports</span><strong>4</strong></div>
         </div>
+        <button type="button" id="family-toggle" class="family-toggle" aria-expanded="false" aria-controls="family-grid">See more</button>
       </div>
     </section>
 
@@ -1284,6 +1285,14 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 <div id="cursor-glow" aria-hidden="true"></div>
+
+  <div id="pc-only-banner" class="pc-only-banner" role="status" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>
+    </svg>
+    <span><strong>Best on desktop</strong>The playable Godot demo runs poorly on phones — open this page on a PC for the best experience.</span>
+    <button type="button" id="pc-only-banner-close" aria-label="Dismiss">×</button>
+  </div>
 
   <div id="play-modal" class="play-modal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="play-modal-backdrop" data-close></div>

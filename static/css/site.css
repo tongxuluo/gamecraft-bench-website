@@ -801,14 +801,20 @@ footer p {
 
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 820px) {
-  .topbar { gap: 8px 14px; overflow-x: auto; justify-content: flex-start; padding: 12px 16px 8px; }
+  .topbar { gap: 8px 14px; overflow-x: auto; justify-content: flex-start; padding: 12px 16px 8px; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+  .topbar::-webkit-scrollbar { display: none; }
   .subtitle { font-size: 19px; }
   .two-column,
   .model-demo-row,
   .property-grid,
   .finding-grid { grid-template-columns: 1fr; }
-  .model-label, .demo-placeholder { min-height: auto; }
-  .demo-window { overflow-x: auto; padding-bottom: 4px; }
+  .model-label { min-height: auto; flex-direction: row; align-items: center; gap: 12px; padding: 14px 18px; }
+  .model-label .model-label-icon { margin-bottom: 0; width: 32px; height: 32px; }
+  .model-label h3 { margin-bottom: 0; }
+  .model-label span { margin-left: auto; }
+  .demo-placeholder { min-height: auto; padding: 28px 20px; }
+  .demo-window { overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .demo-window::-webkit-scrollbar { height: 4px; }
   .demo-track {
     display: flex;
     overflow-x: auto;
@@ -826,12 +832,134 @@ footer p {
   .family-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+/* ── Phone (≤520px) ────────────────────────────────────────────────────── */
 @media (max-width: 520px) {
-  .stats { flex-direction: column; align-items: center; }
-  .family-grid { grid-template-columns: repeat(2, 1fr); }
+  body { font-size: 17px; }
+  .section { padding: 32px 0; }
+  .hero-inner { padding: 28px 0 36px; }
+  .topbar { font-size: 13px; gap: 8px 12px; padding: 10px 14px 6px; }
+  .title-image { width: 92%; }
+  .title-rule-top, .title-rule-bottom { width: 92%; }
+
+  /* Hero text */
+  .subtitle { font-size: 17px; padding: 0 14px; }
+  .authors { font-size: 15px; word-spacing: 0.18em; padding: 0 12px; }
+  .affiliations, .author-notes { font-size: 12px; padding: 0 12px; }
+
+  /* Buttons stack two-up */
+  .actions { gap: 8px; padding: 0 14px; }
+  .button { padding: 9px 14px; font-size: 14px; }
+
+  /* Stats: 2-column grid (more compact than full stack) */
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 4px; }
+  .stats div { min-width: 0; padding: 12px 10px; }
+  .stats strong { font-size: 24px; }
+
+  /* Section heading */
+  .section-heading { margin-bottom: 22px; }
+  .section-heading p { font-size: 15px; }
+
+  /* Tables: shrink to fit on phones, no horizontal scroll, all columns visible */
+  .table-wrap {
+    position: relative;
+    overflow: visible;
+    -webkit-overflow-scrolling: touch;
+  }
+  .table-wrap::after { content: none; }
+  .leaderboard, .comparison-table {
+    min-width: 0;
+    width: 100%;
+    table-layout: fixed;
+    font-size: 11px;
+  }
+  .leaderboard th, .leaderboard td {
+    padding: 8px 4px;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    line-height: 1.3;
+  }
+  .leaderboard th { font-size: 9.5px; letter-spacing: 0; padding: 8px 3px; }
+  .leaderboard th:nth-child(2),
+  .leaderboard td:nth-child(2),
+  .leaderboard th:nth-child(3),
+  .leaderboard td:nth-child(3) { text-align: center; }
+  .leaderboard td:nth-child(1) { padding: 8px 2px; }   /* Rank */
+  /* Keep agent/model icon a touch tighter */
+  .model-icon { width: 14px; height: 14px; margin-right: 2px; vertical-align: -2px; }
+  .hib-arrow { margin-left: 1px; font-size: 0.85em; }
+  .leaderboard tbody td strong { font-size: 12px; }
+
+  .comparison-table { font-size: 12px; }
+  .comparison-table th, .comparison-table td {
+    padding: 10px 6px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.3;
+  }
+  .comparison-table th { font-size: 10.5px; letter-spacing: 0; }
+  .comparison-table .yes, .comparison-table .no { font-size: 17px; }
+
+  /* Family grid */
+  .family-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .family-grid div { padding: 12px 14px; }
+  .family-grid strong { font-size: 20px; }
+
+  /* Cards */
   .rubric-grid { grid-template-columns: 1fr; }
-  .section { padding: 28px 0; }
-  .demo-content { flex-direction: column; }
+  .property-grid, .finding-grid { gap: 14px; }
+  .rubric-card, .property-grid article, .finding-grid article { padding: 16px 18px; }
+
+  /* Demo cards: full screen width minus margin */
+  .demo-card { flex: 0 0 calc(100vw - 32px); }
+  .demo-card video, .demo-video-placeholder { aspect-ratio: 16 / 9; }
+  .demo-content { gap: 12px; padding: 14px 16px 16px; }
+  .demo-card h3 { font-size: 14px; }
+  .demo-meta { font-size: 10px; }
+  .score-overall { width: 100%; max-width: none; }
+  .score-grid { width: 100%; }
+  .play-link { align-self: stretch; justify-content: center; }
+
+  /* Citation */
+  .citation-box pre { padding: 16px 18px; padding-top: 56px; padding-right: 18px; font-size: 11.5px; }
+  .citation-copy { top: 10px; right: 10px; padding: 5px 10px; font-size: 12px; }
+
+  /* Visitor badge wraps nicely */
+  footer p { padding: 0 14px; line-height: 1.6; }
+
+  /* Back to top: smaller, pulled in */
+  #back-to-top { display: none !important; }
+}
+
+/* ── PC-only banner for Try-to-Play (small screens only) ──────────────── */
+.pc-only-banner {
+  display: none;
+  position: fixed;
+  inset: auto 16px 16px 16px;
+  z-index: 110;
+  padding: 14px 18px;
+  border: 1.5px solid var(--accent);
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: var(--shadow-up);
+  animation: pc-banner-pop .25s ease-out;
+}
+.pc-only-banner.is-visible { display: flex; gap: 12px; align-items: flex-start; }
+.pc-only-banner svg { flex-shrink: 0; width: 22px; height: 22px; color: var(--accent); margin-top: 1px; }
+.pc-only-banner strong { display: block; margin-bottom: 2px; font-weight: 700; }
+.pc-only-banner button {
+  margin-left: auto; flex-shrink: 0;
+  border: none; background: transparent; cursor: pointer;
+  color: var(--ink-mute); font-size: 18px; line-height: 1;
+  padding: 0 4px;
+}
+@keyframes pc-banner-pop {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ─── Cursor glow + ripples ──────────────────────────────────────────────── */
@@ -1070,4 +1198,60 @@ body.play-modal-open { overflow: hidden; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   user-select: none;
+}
+
+/* ─── Family grid: collapsible on mobile ─────────────────────────────────── */
+.family-toggle {
+  display: none;
+  margin: 14px auto 0;
+  padding: 9px 22px;
+  border: 1.5px solid var(--rule-strong);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.family-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-up);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 820px) {
+  .family-toggle { display: block; }
+  /* Tablet 3-col → show first 9 (3 rows), hide rest */
+  .family-grid:not(.is-expanded) > div:nth-child(n+10) { display: none; }
+}
+@media (max-width: 520px) {
+  /* Phone 2-col → show first 6 (3 rows), hide rest */
+  .family-grid:not(.is-expanded) > div:nth-child(n+7) { display: none; }
+}
+
+/* ─── Carousel swipe hint (mobile only) ──────────────────────────────────── */
+.demo-carousel { position: relative; }
+.demo-carousel::after {
+  content: "← swipe to browse →";
+  display: none;
+  margin-top: 8px;
+  text-align: center;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink-mute);
+  animation: swipe-hint-pulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes swipe-hint-pulse {
+  0%, 100% { opacity: 0.45; transform: translateX(0); }
+  25%      { opacity: 1;    transform: translateX(-3px); }
+  75%      { opacity: 1;    transform: translateX(3px); }
+}
+@media (max-width: 820px) {
+  .demo-carousel::after { display: block; }
 }

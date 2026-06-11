@@ -238,12 +238,33 @@ document.querySelectorAll("[data-citation-copy]").forEach((btn) => {
     var a = e.target.closest && e.target.closest('a.play-link');
     if (!a) return;
     var href = a.getAttribute('href');
-    if (!href || href === '#' || /^https?:\/\//i.test(href) === false && !/index\.html$/.test(href)) {
-      // only intercept local godot index.html links
+    if (!href || href === '#') return;
+    e.preventDefault();
+    // Mobile / narrow-viewport: show "best on PC" banner instead of opening
+    if (window.matchMedia && window.matchMedia('(max-width: 820px)').matches) {
+      showPcOnlyBanner();
+      return;
     }
-    if (href && href !== '#') {
-      e.preventDefault();
-      open(href);
+    open(href);
+  });
+
+  function showPcOnlyBanner() {
+    var b = document.getElementById('pc-only-banner');
+    if (!b) return;
+    b.classList.add('is-visible');
+    b.setAttribute('aria-hidden', 'false');
+    if (showPcOnlyBanner._t) clearTimeout(showPcOnlyBanner._t);
+    showPcOnlyBanner._t = setTimeout(function() {
+      b.classList.remove('is-visible');
+      b.setAttribute('aria-hidden', 'true');
+    }, 6000);
+  }
+  var bannerClose = document.getElementById('pc-only-banner-close');
+  if (bannerClose) bannerClose.addEventListener('click', function() {
+    var b = document.getElementById('pc-only-banner');
+    if (b) {
+      b.classList.remove('is-visible');
+      b.setAttribute('aria-hidden', 'true');
     }
   });
 
@@ -253,5 +274,17 @@ document.querySelectorAll("[data-citation-copy]").forEach((btn) => {
 
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+  });
+})();
+
+// ---------- Family grid: See more / Show less (mobile) ----------
+(function() {
+  var btn = document.getElementById('family-toggle');
+  var grid = document.getElementById('family-grid');
+  if (!btn || !grid) return;
+  btn.addEventListener('click', function() {
+    var expanded = grid.classList.toggle('is-expanded');
+    btn.textContent = expanded ? 'Show less' : 'See more';
+    btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
   });
 })();
