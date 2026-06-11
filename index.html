@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="GameCraft-Bench evaluates CLI coding agents on end-to-end Godot game development with replayed gameplay evidence.">
   <title>GameCraft-Bench</title>
-  <link rel="stylesheet" href="static/css/site.css?v=20260611-carousel3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/site.css?v=20260611-aiform1">
 </head>
 <body>
   <header class="hero">
@@ -21,28 +24,45 @@
     </nav>
 
     <div class="hero-inner">
+      <span class="title-rule-top"></span>
       <img class="title-image" src="static/images/benchmark_title.png" alt="GameCraft-Bench">
+      <span class="title-rule-bottom"></span>
       <p class="subtitle">
         Benchmarking coding agents for end-to-end game development in real game-engine environments.
       </p>
       <p class="authors">
-        Tongxu Luo<sup>1,2*</sup>, Rongsheng Wang<sup>1*</sup>, Jiaxi Bi<sup>2,4*&dagger;</sup>,
-        Chenming Xu<sup>1,2*</sup>, Zhengyang Tang<sup>1,3*</sup>, Jianlong Chen<sup>1</sup>,
-        Juhao Liang<sup>1</sup>, Ke Ji<sup>1</sup>, Shuqi Guo<sup>1,2</sup>,
-        Yuhao Du<sup>1,2</sup>, Fan Bu<sup>1,2</sup>, Wenyu Du<sup>5</sup>,
-        Xiaotong Zhang<sup>4</sup>, Kyle Li<sup>7</sup>, Shaobo Wang<sup>6</sup>,
-        Linfeng Zhang<sup>6</sup>, Yuxuan Liu<sup>3</sup>, Xin Lai<sup>3</sup>,
-        Chenxin Li<sup>3</sup>, Yiduo Guo<sup>3</sup>, Xinyuan Wang<sup>3</sup>,
-        Ziniu Li<sup>3</sup>, Benyou Wang<sup>1,2&Dagger;</sup>
+        <span class="author" data-aff="1,2">Tongxu Luo<sup>1,2*</sup></span>,
+        <span class="author" data-aff="1">Rongsheng Wang<sup>1*</sup></span>,
+        <span class="author" data-aff="2,4">Jiaxi Bi<sup>2,4*&dagger;</sup></span>,
+        <span class="author" data-aff="1,2">Chenming Xu<sup>1,2*</sup></span>,
+        <span class="author" data-aff="1,3">Zhengyang Tang<sup>1,3*</sup></span>,
+        <span class="author" data-aff="1">Jianlong Chen<sup>1</sup></span>,
+        <span class="author" data-aff="1">Juhao Liang<sup>1</sup></span>,
+        <span class="author" data-aff="1">Ke Ji<sup>1</sup></span>,
+        <span class="author" data-aff="1,2">Shuqi Guo<sup>1,2</sup></span>,
+        <span class="author" data-aff="1,2">Yuhao Du<sup>1,2</sup></span>,
+        <span class="author" data-aff="1,2">Fan Bu<sup>1,2</sup></span>,
+        <span class="author" data-aff="5">Wenyu Du<sup>5</sup></span>,
+        <span class="author" data-aff="4">Xiaotong Zhang<sup>4</sup></span>,
+        <span class="author" data-aff="7">Kyle Li<sup>7</sup></span>,
+        <span class="author" data-aff="6">Shaobo Wang<sup>6</sup></span>,
+        <span class="author" data-aff="6">Linfeng Zhang<sup>6</sup></span>,
+        <span class="author" data-aff="3">Yuxuan Liu<sup>3</sup></span>,
+        <span class="author" data-aff="3">Xin Lai<sup>3</sup></span>,
+        <span class="author" data-aff="3">Chenxin Li<sup>3</sup></span>,
+        <span class="author" data-aff="3">Yiduo Guo<sup>3</sup></span>,
+        <span class="author" data-aff="3">Xinyuan Wang<sup>3</sup></span>,
+        <span class="author" data-aff="3">Ziniu Li<sup>3</sup></span>,
+        <span class="author" data-aff="1,2">Benyou Wang<sup>1,2&Dagger;</sup></span>
       </p>
       <p class="affiliations">
-        <sup>1</sup>The Chinese University of Hong Kong, Shenzhen,
-        <sup>2</sup>Shenzhen Loop Area Institute,
-        <sup>3</sup>Hunyuan Team, Tencent,
-        <sup>4</sup>USTB,
-        <sup>5</sup>DualverseAI,
-        <sup>6</sup>SJTU,
-        <sup>7</sup>NUS
+        <span class="aff" data-aff="1"><sup>1</sup>The Chinese University of Hong Kong, Shenzhen</span>,
+        <span class="aff" data-aff="2"><sup>2</sup>Shenzhen Loop Area Institute</span>,
+        <span class="aff" data-aff="3"><sup>3</sup>Hunyuan Team, Tencent</span>,
+        <span class="aff" data-aff="4"><sup>4</sup>USTB</span>,
+        <span class="aff" data-aff="5"><sup>5</sup>DualverseAI</span>,
+        <span class="aff" data-aff="6"><sup>6</sup>SJTU</span>,
+        <span class="aff" data-aff="7"><sup>7</sup>NUS</span>
       </p>
       <p class="author-notes">
         <sup>*</sup>Equal contributions.
@@ -50,10 +70,26 @@
         <sup>&Dagger;</sup>Corresponding author.
       </p>
       <div class="actions">
-        <a class="button primary" href="#" aria-label="Project website link placeholder">Website</a>
-        <a class="button" href="#" aria-label="Paper link placeholder">Paper</a>
-        <a class="button" href="https://github.com/tongxuluo/GameCraft-Bench">Code</a>
-        <a class="button" href="#demos">Demos</a>
+        <a class="button primary" href="#" aria-label="Project website link placeholder">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/>
+          </svg>Website
+        </a>
+        <a class="button" href="#" aria-label="Paper link placeholder">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8"/><path d="M8 17h6"/>
+          </svg>Paper
+        </a>
+        <a class="button" href="https://github.com/tongxuluo/GameCraft-Bench">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.6 18.4.5 12 .5z"/>
+          </svg>Code
+        </a>
+        <a class="button" href="#demos">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z"/>
+          </svg>Demos
+        </a>
       </div>
     </div>
   </header>
@@ -194,7 +230,7 @@
               <tr>
                 <td>1</td>
                 <td>Claude Code</td>
-                <td>Opus-4.7 high</td>
+                <td><img class="model-icon" src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/claude-color.png" alt="Claude">Opus-4.7 high</td>
                 <td><strong>41.46</strong></td>
                 <td>55.34</td>
                 <td>39.48</td>
@@ -204,7 +240,7 @@
               <tr>
                 <td>2</td>
                 <td>Codex</td>
-                <td>GPT-5.5 high</td>
+                <td><img class="model-icon" src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/openai.png" alt="OpenAI">GPT-5.5 high</td>
                 <td><strong>39.49</strong></td>
                 <td>54.36</td>
                 <td>38.61</td>
@@ -214,7 +250,7 @@
               <tr>
                 <td>3</td>
                 <td>Kimi Code</td>
-                <td>Kimi-K2.6</td>
+                <td><img class="model-icon" src="https://statics.moonshot.cn/kimi-web-seo/assets/kimi-logo-CegIMkbU.png" alt="Kimi">Kimi-K2.6</td>
                 <td><strong>30.65</strong></td>
                 <td>39.76</td>
                 <td>28.07</td>
@@ -224,7 +260,7 @@
               <tr>
                 <td>4</td>
                 <td>Claude Code</td>
-                <td>MiMo-V2.5-Pro</td>
+                <td><img class="model-icon" src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/xiaomimimo.png" alt="Xiaomi MiMo">MiMo-V2.5-Pro</td>
                 <td><strong>24.10</strong></td>
                 <td>32.33</td>
                 <td>22.59</td>
@@ -234,7 +270,7 @@
               <tr>
                 <td>5</td>
                 <td>Code Buddy</td>
-                <td>GLM-5.1</td>
+                <td><img class="model-icon" src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/zhipu-color.png" alt="Zhipu">GLM-5.1</td>
                 <td><strong>18.29</strong></td>
                 <td>25.23</td>
                 <td>17.80</td>
@@ -244,7 +280,7 @@
               <tr>
                 <td>6</td>
                 <td>Code Buddy</td>
-                <td>MiniMax-M2.7</td>
+                <td><img class="model-icon" src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/minimax-color.png" alt="MiniMax">MiniMax-M2.7</td>
                 <td><strong>10.95</strong></td>
                 <td>14.27</td>
                 <td>9.92</td>
@@ -254,7 +290,7 @@
               <tr>
                 <td>7</td>
                 <td>Codex</td>
-                <td>Deepseek-V4-Pro</td>
+                <td><img class="model-icon" src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/deepseek-color.png" alt="DeepSeek">Deepseek-V4-Pro</td>
                 <td><strong>2.15</strong></td>
                 <td>2.25</td>
                 <td>1.69</td>
@@ -273,44 +309,41 @@
     </section>
 
     <section id="evaluation" class="section">
-      <div class="container two-column">
-        <article>
-          <h2>Evaluation Protocol</h2>
-          <p>
-            GameCraft-Bench evaluates complete playable artifacts. Each agent
-            receives a game brief, shared asset libraries, and a fixed workspace,
-            then submits a Godot project plus replayable demonstration traces.
-          </p>
-          <ol class="pipeline">
-            <li>Build and launch the Godot project.</li>
-            <li>Replay mouse and keyboard traces at 30 FPS.</li>
-            <li>Record gameplay videos and sample visual evidence.</li>
-            <li>Score rubric items with a multimodal judge.</li>
-          </ol>
-        </article>
-        <div class="rubric-grid">
-          <div class="rubric-card">
-            <h3>Core Mechanics</h3>
-            <p>Does the requested gameplay loop work under player input?</p>
-          </div>
-          <div class="rubric-card">
-            <h3>Content Depth</h3>
-            <p>Is there enough progression, content, and state variation?</p>
-          </div>
-          <div class="rubric-card">
-            <h3>Functional Visuals</h3>
-            <p>Can players read state, feedback, transitions, and outcomes?</p>
-          </div>
-          <div class="rubric-card">
-            <h3>Art and Presentation</h3>
-            <p>Does the game feel visually coherent and appropriately styled?</p>
+      <div class="container">
+        <div class="two-column" style="margin-bottom:24px">
+          <article>
+            <h2>Evaluation Protocol</h2>
+            <p>
+              GameCraft-Bench evaluates complete playable artifacts. Each agent
+              receives a game brief, shared asset libraries, and a fixed workspace,
+              then submits a Godot project plus replayable demonstration traces.
+            </p>
+            <ol class="pipeline">
+              <li>Build and launch the Godot project.</li>
+              <li>Replay mouse and keyboard traces at 30 FPS.</li>
+              <li>Record gameplay videos and sample visual evidence.</li>
+              <li>Score rubric items with a multimodal judge.</li>
+            </ol>
+          </article>
+          <div class="rubric-grid">
+            <div class="rubric-card">
+              <h3>Core Mechanics</h3>
+              <p>Does the requested gameplay loop work under player input?</p>
+            </div>
+            <div class="rubric-card">
+              <h3>Content Depth</h3>
+              <p>Is there enough progression, content, and state variation?</p>
+            </div>
+            <div class="rubric-card">
+              <h3>Functional Visuals</h3>
+              <p>Can players read state, feedback, transitions, and outcomes?</p>
+            </div>
+            <div class="rubric-card">
+              <h3>Art and Presentation</h3>
+              <p>Does the game feel visually coherent and appropriately styled?</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
         <figure class="paper-figure">
           <img src="static/figures/verify_pipeline.png" alt="Playability verification pipeline">
           <figcaption>
@@ -321,6 +354,8 @@
         </figure>
       </div>
     </section>
+
+    <section class="section" style="display:none"></section>
 
     <section id="tasks" class="section muted">
       <div class="container">
@@ -408,6 +443,7 @@
         <div class="demo-model-stack">
           <section class="model-demo-row">
             <div class="model-label">
+              <img class="model-label-icon" src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/claude-color.png" alt="Claude">
               <h3>Opus-4.7</h3>
               <span>Claude Code</span>
             </div>
@@ -416,6 +452,7 @@
 
           <section class="model-demo-row">
             <div class="model-label">
+              <img class="model-label-icon" src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/openai.png" alt="OpenAI">
               <h3>GPT-5.5</h3>
               <span>Codex</span>
             </div>
@@ -424,6 +461,7 @@
 
           <section class="model-demo-row">
             <div class="model-label">
+              <img class="model-label-icon" src="https://statics.moonshot.cn/kimi-web-seo/assets/kimi-logo-CegIMkbU.png" alt="Kimi">
               <h3>Kimi-K2.6</h3>
               <span>Kimi Code</span>
             </div>
@@ -533,10 +571,136 @@
 
           <section class="model-demo-row">
             <div class="model-label">
+              <img class="model-label-icon" src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/xiaomimimo.png" alt="Xiaomi MiMo">
               <h3>MiMo-2.5-Pro</h3>
               <span>Claude Code</span>
             </div>
-            <div class="demo-placeholder">Playable demos coming soon</div>
+            <div class="demo-carousel" aria-label="MiMo-2.5-Pro playable demos">
+              <div class="demo-window">
+                <div class="demo-track">
+                <article class="demo-card">
+                  <video controls muted playsinline preload="metadata">
+                    <source src="static/videos/platformer-dread-wings.mp4" type="video/mp4">
+                  </video>
+                  <div class="demo-content">
+                    <div class="demo-details">
+                      <h3>Platformer Dread Wings</h3>
+                      <p class="demo-meta">MiMo-2.5-Pro (Claude Code)</p>
+                      <div class="demo-scores" aria-label="Platformer Dread Wings scores">
+                        <div class="score-overall">
+                          <span>Overall</span>
+                          <strong>61.99</strong>
+                        </div>
+                        <div class="score-grid">
+                          <span><b>Mechanics</b>100.00</span>
+                          <span><b>Depth</b>25.00</span>
+                          <span><b>Visuals</b>70.47</span>
+                          <span><b>Art</b>79.06</span>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="play-link" href="static/godot/platformer-dread-wings/index.html">Try to Play</a>
+                  </div>
+                </article>
+                <article class="demo-card">
+                  <video controls muted playsinline preload="metadata">
+                    <source src="static/videos/openworld-cartographer.mp4" type="video/mp4">
+                  </video>
+                  <div class="demo-content">
+                    <div class="demo-details">
+                      <h3>Openworld Cartographer</h3>
+                      <p class="demo-meta">MiMo-2.5-Pro (Claude Code)</p>
+                      <div class="demo-scores" aria-label="Openworld Cartographer scores">
+                        <div class="score-overall">
+                          <span>Overall</span>
+                          <strong>60.35</strong>
+                        </div>
+                        <div class="score-grid">
+                          <span><b>Mechanics</b>51.25</span>
+                          <span><b>Depth</b>56.25</span>
+                          <span><b>Visuals</b>27.50</span>
+                          <span><b>Art</b>63.33</span>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="play-link" href="static/godot/openworld-cartographer/index.html">Try to Play</a>
+                  </div>
+                </article>
+                <article class="demo-card">
+                  <video controls muted playsinline preload="metadata">
+                    <source src="static/videos/shooter-void-patrol.mp4" type="video/mp4">
+                  </video>
+                  <div class="demo-content">
+                    <div class="demo-details">
+                      <h3>Shooter Void Patrol</h3>
+                      <p class="demo-meta">MiMo-2.5-Pro (Claude Code)</p>
+                      <div class="demo-scores" aria-label="Shooter Void Patrol scores">
+                        <div class="score-overall">
+                          <span>Overall</span>
+                          <strong>46.38</strong>
+                        </div>
+                        <div class="score-grid">
+                          <span><b>Mechanics</b>80.00</span>
+                          <span><b>Depth</b>20.00</span>
+                          <span><b>Visuals</b>59.69</span>
+                          <span><b>Art</b>49.22</span>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="play-link" href="static/godot/shooter-void-patrol/index.html">Try to Play</a>
+                  </div>
+                </article>
+                <article class="demo-card">
+                  <video controls muted playsinline preload="metadata">
+                    <source src="static/videos/sports-skateboard-park.mp4" type="video/mp4">
+                  </video>
+                  <div class="demo-content">
+                    <div class="demo-details">
+                      <h3>Sports Skateboard Park</h3>
+                      <p class="demo-meta">MiMo-2.5-Pro (Claude Code)</p>
+                      <div class="demo-scores" aria-label="Sports Skateboard Park scores">
+                        <div class="score-overall">
+                          <span>Overall</span>
+                          <strong>44.97</strong>
+                        </div>
+                        <div class="score-grid">
+                          <span><b>Mechanics</b>36.25</span>
+                          <span><b>Depth</b>47.50</span>
+                          <span><b>Visuals</b>20.00</span>
+                          <span><b>Art</b>43.12</span>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="play-link" href="static/godot/sports-skateboard-park/index.html">Try to Play</a>
+                  </div>
+                </article>
+                <article class="demo-card">
+                  <video controls muted playsinline preload="metadata">
+                    <source src="static/videos/tycoon-railroad-baron.mp4" type="video/mp4">
+                  </video>
+                  <div class="demo-content">
+                    <div class="demo-details">
+                      <h3>Tycoon Railroad Baron</h3>
+                      <p class="demo-meta">MiMo-2.5-Pro (Claude Code)</p>
+                      <div class="demo-scores" aria-label="Tycoon Railroad Baron scores">
+                        <div class="score-overall">
+                          <span>Overall</span>
+                          <strong>44.08</strong>
+                        </div>
+                        <div class="score-grid">
+                          <span><b>Mechanics</b>67.50</span>
+                          <span><b>Depth</b>35.00</span>
+                          <span><b>Visuals</b>48.75</span>
+                          <span><b>Art</b>30.00</span>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="play-link" href="static/godot/tycoon-railroad-baron/index.html">Try to Play</a>
+                  </div>
+                </article>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </div>
@@ -545,12 +709,15 @@
     <section id="citation" class="section">
       <div class="container narrow">
         <h2>Citation</h2>
-        <pre><code>@misc{luo2026gamecraftbench,
+        <div class="citation-box">
+          <button type="button" class="citation-copy" data-citation-copy aria-label="Copy citation">Copy</button>
+          <pre><code>@misc{luo2026gamecraftbench,
   title = {GameCraft-Bench: Benchmarking Coding Agents for End-to-End Game Development in Game Engine Environments},
   author = {Tongxu Luo and Rongsheng Wang and Jiaxi Bi and Chenming Xu and Zhengyang Tang and Jianlong Chen and Juhao Liang and Ke Ji and Shuqi Guo and Yuhao Du and Fan Bu and Wenyu Du and Xiaotong Zhang and Kyle Li and Shaobo Wang and Linfeng Zhang and Yuxuan Liu and Xin Lai and Chenxin Li and Yiduo Guo and Xinyuan Wang and Ziniu Li and Benyou Wang},
   year = {2026},
   url = {https://github.com/tongxuluo/GameCraft-Bench}
 }</code></pre>
+        </div>
       </div>
     </section>
 
@@ -570,8 +737,24 @@
   </main>
 
   <footer>
-    <p>GameCraft-Bench · End-to-end game-development evaluation for coding agents.</p>
+    <p><img class="visitor-badge" src="https://visitor-badge.laobi.icu/badge?page_id=https%3A%2F%2Ftongxuluo.github.io%2Fgamecraft-bench-website%2F&left_color=%23595959&right_color=%234a1cca" alt="visitor badge"/> GameCraft-Bench · End-to-end game-development evaluation for coding agents.</p>
   </footer>
-  <script src="static/js/site.js?v=20260611-carousel4"></script>
+
+  <button id="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+<div id="cursor-glow" aria-hidden="true"></div>
+
+  <div id="play-modal" class="play-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="play-modal-backdrop" data-close></div>
+    <div class="play-modal-frame" role="document">
+      <button type="button" class="play-modal-close" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <iframe class="play-modal-iframe" title="Playable demo" src="about:blank" allow="autoplay; gamepad; fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script src="static/js/site.js?v=20260611-aiform1"></script>
 </body>
 </html>
