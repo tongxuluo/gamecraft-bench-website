@@ -1042,3 +1042,12 @@ body.play-modal-open { overflow: hidden; }
     box-shadow: none;
   }
 }
+
+.hib-arrow {
+  display: inline-block;
+  margin-left: 4px;
+  color: var(--accent);
+  font-size: 0.85em;
+  font-weight: 700;
+  vertical-align: baseline;
+}
