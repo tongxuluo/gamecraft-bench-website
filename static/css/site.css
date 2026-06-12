@@ -1097,8 +1097,9 @@ body.play-modal-open { overflow: hidden; }
 
 .play-modal-frame {
   position: relative;
-  width: min(1280px, 96vw);
-  height: min(820px, 92vh);
+  width: min(1280px, 96vw, calc(92vh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  max-height: 92vh;
   background: #0d1117;
   border: 0;
   border-radius: 0;
