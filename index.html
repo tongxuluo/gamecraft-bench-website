@@ -3,23 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="GameCraft-Bench evaluates CLI coding agents on end-to-end Godot game development with replayed gameplay evidence.">
+  <meta name="description" content="GameCraft-Bench asks whether coding agents can build playable games end-to-end in a real game engine.">
   <title>GameCraft-Bench</title>
   <link rel="icon" type="image/png" href="static/images/favicon.png?v=2">
   <link rel="apple-touch-icon" href="static/images/favicon.png?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="static/css/site.css?v=20260611-godotfit1">
+  <link rel="stylesheet" href="static/css/site.css?v=20260613-designspace1">
 </head>
 <body>
   <header class="hero">
     <nav class="topbar" aria-label="Primary">
       <a href="#overview">Overview</a>
       <a href="#abstract">Abstract</a>
-      <a href="#leaderboard">Leaderboard</a>
-      <a href="#tasks">Tasks</a>
+      <a href="#design">Design</a>
       <a href="#evaluation">Evaluation</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#analysis">Analysis</a>
       <a href="#demos">Demos</a>
       <a href="#citation">Citation</a>
       <a href="#acknowledgement">Acknowledgement</a>
@@ -30,7 +31,7 @@
       <img class="title-image" src="static/images/benchmark_title.png" alt="GameCraft-Bench">
       <span class="title-rule-bottom"></span>
       <p class="subtitle">
-        Benchmarking coding agents for end-to-end game development in real game-engine environments.
+        Can Agents Build Playable Games End-to-End in a Real Game Engine?
       </p>
       <p class="authors">
         <span class="author" data-aff="1,2">Tongxu Luo<sup>1,2*</sup></span>,
@@ -53,7 +54,9 @@
         <span class="author" data-aff="3">Xin Lai<sup>3</sup></span>,
         <span class="author" data-aff="3">Chenxin Li<sup>3</sup></span>,
         <span class="author" data-aff="3">Yiduo Guo<sup>3</sup></span>,
+        <span class="author" data-aff="3">Zhexin Zhang<sup>3</sup></span>,
         <span class="author" data-aff="3">Xinyuan Wang<sup>3</sup></span>,
+        <span class="author" data-aff="3">Tianyi Bai<sup>3</sup></span>,
         <span class="author" data-aff="3">Ziniu Li<sup>3</sup></span>,
         <span class="author" data-aff="1,2">Benyou Wang<sup>1,2&Dagger;</sup></span>
       </p>
@@ -105,7 +108,7 @@
           into a complete, playable Godot 4 project. Each submission includes a
           game project and replayable input traces. The verifier launches the
           game, replays the traces, records gameplay videos, samples visual
-          evidence, and scores the result with a task rubric.
+          evidence, and scores observed play with a hidden task rubric.
         </p>
         <div class="stats" aria-label="Benchmark statistics">
           <div><strong>140</strong><span>Tasks</span></div>
@@ -129,19 +132,22 @@
           system, rather than merely producing compilable code.
         </p>
         <p>
-          Evaluating this setting requires three properties:
-          <strong>P1: Engine-grounded Construction</strong>,
-          <strong>P2: Artifact Completeness</strong>, and
-          <strong>P3: Interactive Playability Evaluation</strong>. Existing
+          Evaluating this setting requires three desiderata:
+          <strong>Desideratum I: Environment Fidelity</strong>,
+          <strong>Desideratum II: Artifact Integrity</strong>, and
+          <strong>Desideratum III: Interaction Validity</strong>. Existing
           game-generation benchmarks cover parts of this space but do not
-          jointly satisfy these properties. GameCraft-Bench is an end-to-end
-          benchmark for 2D game development in Godot, containing 140 tasks
-          across 15 game families.
+          jointly satisfy all three. GameCraft-Bench is an end-to-end benchmark
+          for 2D game development in Godot, containing 140 tasks across 15 game
+          families.
         </p>
         <p>
           For each task, an agent receives a game brief, shared asset libraries,
-          and a fixed workspace, then must produce a complete game project and
-          demonstration traces. Evaluation of frontier coding agents shows that
+          and a fixed workspace, then must produce a complete Godot project and
+          replayable demonstration traces. The verifier launches the project,
+          replays the traces, records gameplay evidence, and scores observed
+          play across core mechanics, content depth, functional visuals, and art
+          and presentation. Evaluation of frontier coding agents shows that
           end-to-end game development remains highly challenging: even the
           strongest agent scores only 41.46%, and most agents score below 40.00%.
         </p>
@@ -154,30 +160,49 @@
           <img src="static/figures/overview.png" alt="Overview of GameCraft-Bench">
           <figcaption>
             Overview of GameCraft-Bench: agents turn game briefs into Godot
-            projects, which are executed, replayed, recorded, and judged through
-            gameplay evidence.
+            projects, submit replayable traces, and are evaluated through
+            recorded gameplay evidence in a real engine.
           </figcaption>
         </figure>
       </div>
     </section>
 
-    <section id="comparison" class="section">
+    <section id="design" class="section">
       <div class="container">
         <div class="section-heading">
-          <h2>Benchmark Comparison</h2>
+          <h2>Benchmark Design</h2>
           <p>
-            GameCraft-Bench jointly covers engine-grounded construction,
-            complete artifacts, and interactive playability evaluation.
+            GameCraft-Bench is organized around three evaluation desiderata,
+            compared against prior benchmarks, and instantiated as a 140-task
+            Godot suite spanning 15 game families.
           </p>
         </div>
+
+        <h3 class="subsection-title">Desiderata</h3>
+        <div class="property-grid">
+          <article>
+            <h3>Environment Fidelity</h3>
+            <p>The benchmark should preserve the constraints of real game-engine development.</p>
+          </article>
+          <article>
+            <h3>Artifact Integrity</h3>
+            <p>The benchmark should evaluate complete launchable game artifacts rather than isolated components.</p>
+          </article>
+          <article>
+            <h3>Interaction Validity</h3>
+            <p>The benchmark should judge games through interaction rather than static inspection.</p>
+          </article>
+        </div>
+
+        <h3 class="subsection-title">Comparison</h3>
         <div class="table-wrap">
           <table class="comparison-table">
             <thead>
               <tr>
                 <th>Benchmark</th>
-                <th>Engine-grounded<br>Construction</th>
-                <th>Artifact<br>Completeness</th>
-                <th>Interactive<br>Playability Eval.</th>
+                <th>Environment<br>Fidelity</th>
+                <th>Artifact<br>Integrity</th>
+                <th>Interaction<br>Validity</th>
               </tr>
             </thead>
             <tbody>
@@ -202,6 +227,79 @@
             </tbody>
           </table>
         </div>
+
+        <h3 class="subsection-title">Task Suite</h3>
+        <p class="design-copy">
+          The benchmark spans diverse 2D game-construction demands, from
+          continuous control and collision to rule systems, progression,
+          exploration, and presentation-heavy interaction. Counts exclude the
+          example task.
+        </p>
+        <div class="family-grid" id="family-grid">
+          <div><span>Platformer</span><strong>19</strong></div>
+          <div><span>Strategy</span><strong>17</strong></div>
+          <div><span>Tycoon</span><strong>16</strong></div>
+          <div><span>Open-world</span><strong>15</strong></div>
+          <div><span>Roguelike</span><strong>14</strong></div>
+          <div><span>Visual novel</span><strong>11</strong></div>
+          <div><span>Puzzle</span><strong>8</strong></div>
+          <div><span>Shooter</span><strong>7</strong></div>
+          <div><span>Simulation</span><strong>6</strong></div>
+          <div><span>Card game</span><strong>5</strong></div>
+          <div><span>Horror</span><strong>5</strong></div>
+          <div><span>Rhythm</span><strong>5</strong></div>
+          <div><span>Idle</span><strong>4</strong></div>
+          <div><span>Racing</span><strong>4</strong></div>
+          <div><span>Sports</span><strong>4</strong></div>
+        </div>
+        <button type="button" id="family-toggle" class="family-toggle" aria-expanded="false" aria-controls="family-grid">See more</button>
+      </div>
+    </section>
+
+    <section id="evaluation" class="section">
+      <div class="container">
+        <div class="two-column evaluation-layout">
+          <article>
+            <h2>Evaluation Protocol</h2>
+            <p>
+              GameCraft-Bench operationalizes interaction validity by turning
+              open-ended game submissions into standardized gameplay evidence
+              and rubric scores.
+            </p>
+            <ol class="pipeline">
+              <li>Separate construction intent from measurement targets.</li>
+              <li>Standardize behavioral evidence through replay.</li>
+              <li>Score evidence with rubric categories and item semantics.</li>
+            </ol>
+          </article>
+          <div class="rubric-grid">
+            <div class="rubric-card">
+              <h3>Core Mechanics</h3>
+              <p>Does the requested gameplay loop work under player input?</p>
+            </div>
+            <div class="rubric-card">
+              <h3>Content Depth</h3>
+              <p>Is there enough progression, content, and state variation?</p>
+            </div>
+            <div class="rubric-card">
+              <h3>Functional Visuals</h3>
+              <p>Can players read state, feedback, transitions, and outcomes?</p>
+            </div>
+            <div class="rubric-card">
+              <h3>Art and Presentation</h3>
+              <p>Does the game feel visually coherent and appropriately styled?</p>
+            </div>
+          </div>
+        </div>
+        <figure class="paper-figure">
+          <img src="static/figures/verify_pipeline.png" alt="Playability verification pipeline">
+          <figcaption>
+            Interaction-validity pipeline: the verifier checks launchability,
+            replays submitted traces, records gameplay videos, samples frames,
+            scores each demo with the hidden rubric, and aggregates category
+            scores into the final score.
+          </figcaption>
+        </figure>
       </div>
     </section>
 
@@ -211,7 +309,8 @@
           <h2>Leaderboard</h2>
           <p>
             Overall and category scores on the full 140-task benchmark. Scores
-            are percentages; higher is better.
+            are percentages; Mechanics, Depth, Visuals, and Art correspond to
+            the four rubric categories.
           </p>
         </div>
         <div class="table-wrap">
@@ -304,131 +403,37 @@
         </div>
         <p class="note">
           The strongest configuration reaches only 41.46%, indicating that
-          end-to-end game development remains far from solved for current
-          coding agents.
+          even frontier coding agents remain far from reliable end-to-end game
+          development in a real engine.
         </p>
       </div>
     </section>
 
-    <section id="evaluation" class="section">
-      <div class="container">
-        <div class="two-column" style="margin-bottom:24px">
-          <article>
-            <h2>Evaluation Protocol</h2>
-            <p>
-              GameCraft-Bench evaluates complete playable artifacts. Each agent
-              receives a game brief, shared asset libraries, and a fixed workspace,
-              then submits a Godot project plus replayable demonstration traces.
-            </p>
-            <ol class="pipeline">
-              <li>Build and launch the Godot project.</li>
-              <li>Replay mouse and keyboard traces at 30 FPS.</li>
-              <li>Record gameplay videos and sample visual evidence.</li>
-              <li>Score rubric items with a multimodal judge.</li>
-            </ol>
-          </article>
-          <div class="rubric-grid">
-            <div class="rubric-card">
-              <h3>Core Mechanics</h3>
-              <p>Does the requested gameplay loop work under player input?</p>
-            </div>
-            <div class="rubric-card">
-              <h3>Content Depth</h3>
-              <p>Is there enough progression, content, and state variation?</p>
-            </div>
-            <div class="rubric-card">
-              <h3>Functional Visuals</h3>
-              <p>Can players read state, feedback, transitions, and outcomes?</p>
-            </div>
-            <div class="rubric-card">
-              <h3>Art and Presentation</h3>
-              <p>Does the game feel visually coherent and appropriately styled?</p>
-            </div>
-          </div>
-        </div>
-        <figure class="paper-figure">
-          <img src="static/figures/verify_pipeline.png" alt="Playability verification pipeline">
-          <figcaption>
-            Playability verification pipeline: the verifier launches each
-            submission, replays agent-provided demonstrations, records gameplay,
-            samples frames, and scores the evidence with a rubric-guided judge.
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="section" style="display:none"></section>
-
-    <section id="tasks" class="section muted">
+    <section id="analysis" class="section muted">
       <div class="container">
         <div class="section-heading">
-          <h2>Task Suite</h2>
-          <p>
-            The benchmark spans diverse 2D game-construction demands, from
-            continuous control and collision to rule systems, progression,
-            exploration, and presentation-heavy interaction.
-          </p>
-        </div>
-        <div class="family-grid" id="family-grid">
-          <div><span>Platformer</span><strong>19</strong></div>
-          <div><span>Strategy</span><strong>17</strong></div>
-          <div><span>Tycoon</span><strong>16</strong></div>
-          <div><span>Open-world</span><strong>15</strong></div>
-          <div><span>Roguelike</span><strong>14</strong></div>
-          <div><span>Visual novel</span><strong>11</strong></div>
-          <div><span>Puzzle</span><strong>8</strong></div>
-          <div><span>Shooter</span><strong>7</strong></div>
-          <div><span>Simulation</span><strong>6</strong></div>
-          <div><span>Card game</span><strong>5</strong></div>
-          <div><span>Horror</span><strong>5</strong></div>
-          <div><span>Rhythm</span><strong>5</strong></div>
-          <div><span>Idle</span><strong>4</strong></div>
-          <div><span>Racing</span><strong>4</strong></div>
-          <div><span>Sports</span><strong>4</strong></div>
-        </div>
-        <button type="button" id="family-toggle" class="family-toggle" aria-expanded="false" aria-controls="family-grid">See more</button>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Benchmark Properties</h2>
-        </div>
-        <div class="property-grid">
-          <article>
-            <h3>Engine-grounded Construction</h3>
-            <p>Agents work in a real game engine with scenes, scripts, assets, input maps, and runtime configuration.</p>
-          </article>
-          <article>
-            <h3>Artifact Completeness</h3>
-            <p>The unit of evaluation is a complete playable vertical slice, not an isolated code fragment.</p>
-          </article>
-          <article>
-            <h3>Interactive Playability Evaluation</h3>
-            <p>Scores come from replayed player interaction and recorded gameplay evidence, not source code alone.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section muted">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Key Findings</h2>
+          <h2>Analysis Highlights</h2>
         </div>
         <div class="finding-grid">
           <article>
-            <h3>Mechanics are easier than complete games.</h3>
-            <p>Top agents score higher on core mechanics than on content depth and presentation, suggesting partial loops are easier than polished vertical slices.</p>
+            <h3>Recognizable mechanics are easier than complete games.</h3>
+            <p>Agents more often implement recognizable mechanics than complete games: content depth, visual readability, and presentation remain the main bottlenecks.</p>
           </article>
           <article>
-            <h3>Visual iteration matters.</h3>
-            <p>Kimi-K2.6 used 2,998 rendered-screen inspections across 140 tasks, showing that visual feedback is a major debugging signal for game development.</p>
+            <h3>Judge results are stable but not bias-free.</h3>
+            <p>The playability judge is stable on fixed gameplay evidence and broadly aligned with preliminary human calibration, but it shows a mild permissive bias on content and presentation.</p>
           </article>
           <article>
-            <h3>Judge scores are stable on fixed evidence.</h3>
-            <p>Repeated GPT-5.5 judging on fixed gameplay evidence shows small variance compared with the gaps between agents and families.</p>
+            <h3>Rendered gameplay feedback helps debugging.</h3>
+            <p>Rendered gameplay feedback helps agents debug player-facing failures that are invisible from source code and terminal logs alone.</p>
+          </article>
+          <article>
+            <h3>Execution effort alone does not predict quality.</h3>
+            <p>Execution effort alone does not predict playable quality; agents must close the full build--replay--evaluation loop.</p>
+          </article>
+          <article>
+            <h3>Game-development ability is not monolithic.</h3>
+            <p>Mechanics, content, visual feedback, and presentation are only partially coupled across generated games.</p>
           </article>
         </div>
       </div>
@@ -1253,8 +1258,8 @@
         <div class="citation-box">
           <button type="button" class="citation-copy" data-citation-copy aria-label="Copy citation">Copy</button>
           <pre><code>@misc{luo2026gamecraftbench,
-  title = {GameCraft-Bench: Benchmarking Coding Agents for End-to-End Game Development in Game Engine Environments},
-  author = {Tongxu Luo and Rongsheng Wang and Jiaxi Bi and Chenming Xu and Zhengyang Tang and Jianlong Chen and Juhao Liang and Ke Ji and Shuqi Guo and Yuhao Du and Fan Bu and Wenyu Du and Xiaotong Zhang and Kyle Li and Shaobo Wang and Linfeng Zhang and Yuxuan Liu and Xin Lai and Chenxin Li and Yiduo Guo and Xinyuan Wang and Ziniu Li and Benyou Wang},
+  title = {GameCraft-Bench: Can Agents Build Playable Games End-to-End in a Real Game Engine?},
+  author = {Tongxu Luo and Rongsheng Wang and Jiaxi Bi and Chenming Xu and Zhengyang Tang and Jianlong Chen and Juhao Liang and Ke Ji and Shuqi Guo and Yuhao Du and Fan Bu and Wenyu Du and Xiaotong Zhang and Kyle Li and Shaobo Wang and Linfeng Zhang and Yuxuan Liu and Xin Lai and Chenxin Li and Yiduo Guo and Zhexin Zhang and Xinyuan Wang and Tianyi Bai and Ziniu Li and Benyou Wang},
   year = {2026},
   url = {https://github.com/tongxuluo/GameCraft-Bench}
 }</code></pre>

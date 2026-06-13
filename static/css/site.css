@@ -210,6 +210,12 @@ a:hover { text-decoration: underline; }
   align-items: start;
 }
 
+.evaluation-layout {
+  grid-template-columns: minmax(340px, 1fr) minmax(280px, 0.95fr);
+  gap: 48px;
+  margin-bottom: 24px;
+}
+
 /* ─── Typography ─────────────────────────────────────────────────────────── */
 h1, h2, h3 { margin: 0 0 12px; line-height: 1.2; }
 
@@ -343,6 +349,27 @@ pre code {
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.subsection-title {
+  margin: 56px 0 22px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.section-heading + .subsection-title { margin-top: 0; }
+
+.property-grid + .subsection-title,
+.table-wrap + .subsection-title {
+  margin-top: 72px;
+}
+
+.design-copy {
+  max-width: 850px;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
 }
 
 /* ─── Tables ─────────────────────────────────────────────────────────────── */
