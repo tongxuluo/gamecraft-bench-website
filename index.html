@@ -107,11 +107,12 @@
       <div class="container narrow">
         <h1>GameCraft-Bench</h1>
         <p>
-          GameCraft-Bench asks a coding agent to turn a product-style game brief
-          into a complete, playable Godot 4 project. Each submission includes a
-          game project and replayable input traces. The verifier launches the
-          game, replays the traces, records gameplay videos, samples visual
-          evidence, and scores observed play with a hidden task rubric.
+          GameCraft-Bench evaluates whether coding agents can transform
+          natural-language game specifications into complete, playable Godot
+          projects. Each submission includes a game artifact and replayable
+          interaction traces; the verifier launches the game, replays the
+          traces, records gameplay evidence, and scores observed play with a
+          hidden task rubric.
         </p>
         <div class="stats" aria-label="Benchmark statistics">
           <div><strong>140</strong><span>Tasks</span></div>
@@ -126,33 +127,32 @@
       <div class="container narrow">
         <h2>Abstract</h2>
         <p>
-          Game development is an important application for coding agents, where
-          a user specifies an interactive experience and the agent must turn
-          that intent into a working game artifact. This setting is challenging
-          because game development happens inside an engine, where scripts,
-          scene graphs, assets, input maps, rendering, visual feedback, and
-          runtime configuration must work together as an executable interactive
-          system, rather than merely producing compilable code.
+          Game generation is an emerging application of coding agents,
+          requiring models to transform natural-language specifications into
+          playable interactive systems. Unlike traditional coding tasks, game
+          generation takes place within a game engine, where scripts, scenes,
+          assets, rendering, and runtime interactions must jointly produce
+          coherent gameplay.
         </p>
         <p>
           Evaluating this setting requires three desiderata:
-          <strong>Desideratum I: Environment Fidelity</strong>,
-          <strong>Desideratum II: Artifact Integrity</strong>, and
-          <strong>Desideratum III: Interaction Validity</strong>. Existing
-          game-generation benchmarks cover parts of this space but do not
-          jointly satisfy all three. GameCraft-Bench is an end-to-end benchmark
-          for 2D game development in Godot, containing 140 tasks across 15 game
-          families.
+          <strong>Desideratum I: Engine Grounding</strong>,
+          <strong>Desideratum II: Artifact Completeness</strong>, and
+          <strong>Desideratum III: Interactive Verification</strong>. Existing
+          game-generation benchmarks cover parts of this contract, but leave
+          open whether agents can carry user intent all the way to a complete
+          engine-native game artifact whose behavior is judged through
+          interaction.
         </p>
         <p>
-          For each task, an agent receives a game brief, shared asset libraries,
-          and a fixed workspace, then must produce a complete Godot project and
-          replayable demonstration traces. The verifier launches the project,
-          replays the traces, records gameplay evidence, and scores observed
-          play across core mechanics, content depth, functional visuals, and art
-          and presentation. Evaluation of frontier coding agents shows that
-          end-to-end game development remains highly challenging: even the
-          strongest agent scores only 41.46%, and most agents score below 40.00%.
+          GameCraft-Bench instantiates this framework with 140 Godot tasks
+          across 15 game families. For each task, an agent receives a game
+          specification and must produce a complete Godot project plus
+          replayable demonstration traces. The verifier replays the traces and
+          scores observed play across core mechanics, content depth, functional
+          visuals, and art and presentation. Frontier coding agents remain far
+          from reliable end-to-end game generation: the strongest configuration
+          reaches only 41.46%, and most agents score below 40%.
         </p>
       </div>
     </section>
@@ -162,9 +162,10 @@
         <figure class="paper-figure">
           <img src="static/figures/overview.png" alt="Overview of GameCraft-Bench">
           <figcaption>
-            Overview of GameCraft-Bench: agents turn game briefs into Godot
-            projects, submit replayable traces, and are evaluated through
-            recorded gameplay evidence in a real engine.
+            Overview of GameCraft-Bench: agents turn natural-language game
+            specifications into complete Godot projects, the verifier replays
+            submitted interaction traces, and rubric-guided judging scores
+            gameplay evidence.
           </figcaption>
         </figure>
       </div>
@@ -175,25 +176,25 @@
         <div class="section-heading">
           <h2>Benchmark Design</h2>
           <p>
-            GameCraft-Bench is organized around three evaluation desiderata,
-            compared against prior benchmarks, and instantiated as a 140-task
-            Godot suite spanning 15 game families.
+            GameCraft-Bench is organized around three desiderata for end-to-end
+            game generation, compared against prior benchmarks, and
+            instantiated as a 140-task Godot suite spanning 15 game families.
           </p>
         </div>
 
         <h3 class="subsection-title">Desiderata</h3>
         <div class="property-grid">
           <article>
-            <h3>Environment Fidelity</h3>
-            <p>The benchmark should preserve the constraints of real game-engine development.</p>
+            <h3>Engine Grounding</h3>
+            <p>Games should be evaluated within a concrete game generation and runtime environment.</p>
           </article>
           <article>
-            <h3>Artifact Integrity</h3>
-            <p>The benchmark should evaluate complete launchable game artifacts rather than isolated components.</p>
+            <h3>Artifact Completeness</h3>
+            <p>Games should be evaluated as complete launchable artifacts rather than isolated components.</p>
           </article>
           <article>
-            <h3>Interaction Validity</h3>
-            <p>The benchmark should judge games through interaction rather than static inspection.</p>
+            <h3>Interactive Verification</h3>
+            <p>Games should be judged by observed behavior when they are played interactively.</p>
           </article>
         </div>
 
@@ -203,37 +204,48 @@
             <thead>
               <tr>
                 <th>Benchmark</th>
-                <th>Environment<br>Fidelity</th>
-                <th>Artifact<br>Integrity</th>
-                <th>Interaction<br>Validity</th>
+                <th>Engine<br>Grounding</th>
+                <th>Artifact<br>Completeness</th>
+                <th>Interactive<br>Verification</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>GameDevBench</td>
-                <td class="yes">&check;</td>
+                <td>Godot</td>
                 <td class="no">&times;</td>
                 <td class="no">&times;</td>
               </tr>
               <tr>
                 <td>OpenGame-Bench</td>
-                <td class="no">&times;</td>
+                <td>Web</td>
                 <td class="yes">&check;</td>
                 <td class="no">&times;</td>
               </tr>
+              <tr>
+                <td>WebGameBench*</td>
+                <td>Web</td>
+                <td class="yes">&check;</td>
+                <td class="yes">&check;</td>
+              </tr>
               <tr class="ours">
                 <td>GameCraft-Bench</td>
-                <td class="yes">&check;</td>
+                <td><strong>Godot</strong></td>
                 <td class="yes">&check;</td>
                 <td class="yes">&check;</td>
               </tr>
             </tbody>
           </table>
         </div>
+        <p class="design-copy">
+          *WebGameBench is concurrent with our work: it evaluates delivered Web
+          games, while GameCraft-Bench targets complete projects in a dedicated
+          game engine.
+        </p>
 
         <h3 class="subsection-title">Task Suite</h3>
         <p class="design-copy">
-          The benchmark spans diverse 2D game-construction demands, from
+          The benchmark spans diverse 2D game-generation demands, from
           continuous control and collision to rule systems, progression,
           exploration, and presentation-heavy interaction. Counts exclude the
           example task.
@@ -265,14 +277,16 @@
           <article>
             <h2>Evaluation Protocol</h2>
             <p>
-              GameCraft-Bench operationalizes interaction validity by turning
-              open-ended game submissions into standardized gameplay evidence
-              and rubric scores.
+              GameCraft-Bench operationalizes Interactive Verification by
+              turning open-ended game submissions into replayed gameplay
+              evidence and rubric-guided multimodal judging.
             </p>
             <ol class="pipeline">
-              <li>Separate construction intent from measurement targets.</li>
-              <li>Standardize behavioral evidence through replay.</li>
-              <li>Score evidence with rubric categories and item semantics.</li>
+              <li>Package task, environment, and hidden rubric.</li>
+              <li>Collect project and replayable traces.</li>
+              <li>Gate scoring on launchability.</li>
+              <li>Replay traces into gameplay evidence.</li>
+              <li>Score evidence with rubric item semantics.</li>
             </ol>
           </article>
           <div class="rubric-grid">
@@ -297,10 +311,10 @@
         <figure class="paper-figure">
           <img src="static/figures/verify_pipeline.png" alt="Playability verification pipeline">
           <figcaption>
-            Interaction-validity pipeline: the verifier checks launchability,
-            replays submitted traces, records gameplay videos, samples frames,
-            scores each demo with the hidden rubric, and aggregates category
-            scores into the final score.
+            End-to-end evaluation pipeline: the verifier checks launchability,
+            replays submitted traces into gameplay videos and sampled frames,
+            scores the resulting evidence with a hidden rubric, and aggregates
+            category scores into the final score.
           </figcaption>
         </figure>
       </div>
@@ -407,7 +421,7 @@
         <p class="note">
           The strongest configuration reaches only 41.46%, indicating that
           even frontier coding agents remain far from reliable end-to-end game
-          development in a real engine.
+          generation in a real engine.
         </p>
       </div>
     </section>
@@ -420,7 +434,7 @@
         <div class="finding-grid">
           <article>
             <h3>Recognizable mechanics are easier than complete games.</h3>
-            <p>Agents more often implement recognizable mechanics than complete games: content depth, visual readability, and presentation remain the main bottlenecks.</p>
+            <p>Agents more often produce recognizable local mechanics, but still fail to assemble them into complete, coherent interactive systems.</p>
           </article>
           <article>
             <h3>Judge results are stable but not bias-free.</h3>
@@ -435,7 +449,7 @@
             <p>Execution effort alone does not predict playable quality; agents must close the full build--replay--evaluation loop.</p>
           </article>
           <article>
-            <h3>Game-development ability is not monolithic.</h3>
+            <h3>Game generation ability is not monolithic.</h3>
             <p>Mechanics, content, visual feedback, and presentation are only partially coupled across generated games.</p>
           </article>
         </div>
@@ -1274,6 +1288,16 @@
       <div class="container narrow">
         <h2>Acknowledgement</h2>
         <p>
+          This work was supported by Major Frontier Exploration Program (Grant
+          No. C10120250085) from the Shenzhen Medical Academy of Research and
+          Translation (SMART), Shenzhen Medical Research Fund (B2503005), NSFC
+          grant 72495131, the 1+1+1 CUHK-CUHK(SZ)-GDSTC Joint Collaboration
+          Fund, Guangdong Provincial Key Laboratory of Mathematical Foundations
+          for Artificial Intelligence (2023B1212010001), and the International
+          Science and Technology Cooperation Center, Ministry of Science and
+          Technology of China (under grant 2024YFE0203000).
+        </p>
+        <p>
           This website is adapted from
           <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
           licensed under a
@@ -1286,7 +1310,7 @@
   </main>
 
   <footer>
-    <p><img class="visitor-badge" src="https://visitor-badge.laobi.icu/badge?page_id=https%3A%2F%2Ftongxuluo.github.io%2Fgamecraft-bench-website%2F&left_color=%23595959&right_color=%234a1cca" alt="visitor badge"/> GameCraft-Bench · End-to-end game-development evaluation for coding agents.</p>
+    <p><img class="visitor-badge" src="https://visitor-badge.laobi.icu/badge?page_id=https%3A%2F%2Ftongxuluo.github.io%2Fgamecraft-bench-website%2F&left_color=%23595959&right_color=%234a1cca" alt="visitor badge"/> GameCraft-Bench · End-to-end game-generation evaluation for coding agents.</p>
   </footer>
 
   <button id="back-to-top" aria-label="Back to top" title="Back to top">
