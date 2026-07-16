@@ -4,6 +4,10 @@ document.querySelectorAll(".demo-carousel").forEach((carousel) => {
     return;
   }
 
+  if (track.querySelectorAll(".demo-card").length <= 3) {
+    return;
+  }
+
   let paused = false;
   let sliding = false;
 
