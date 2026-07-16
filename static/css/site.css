@@ -1074,6 +1074,21 @@ footer p {
   object-fit: contain;
 }
 
+.model-wordmark {
+  width: 52px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 6px;
+  object-fit: contain;
+}
+
+.model-label-wordmark {
+  width: 112px;
+  height: auto;
+  margin-bottom: 12px;
+  object-fit: contain;
+}
+
 .model-label-icon {
   width: 36px;
   height: 36px;
